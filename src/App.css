@@ -1,0 +1,17 @@
+span {
+  width: 1.7%;
+  padding-bottom: 1.7%;
+  background-color: black;
+  margin: 0.1%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+div {
+  width: 100%;
+}
+
+#main {
+  width: 80%;
+  margin: 0 auto;
+}
