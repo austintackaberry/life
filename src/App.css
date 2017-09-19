@@ -1,7 +1,6 @@
 span {
   width: 1.7%;
   padding-bottom: 1.7%;
-  background-color: black;
   margin: 0.1%;
   display: inline-block;
   vertical-align: top;
@@ -12,6 +11,14 @@ div {
 }
 
 #main {
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
+}
+
+.red {
+  background-color: red;
+}
+
+.black {
+  background-color: black;
 }
