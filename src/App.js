@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-// import {Line} from 'react-chartjs-2';
-// import { defaults } from 'react-chartjs-2';
-// // Disable animating charts by default.
-// defaults.global.animation = false;
 
 class App extends Component {
   constructor() {
@@ -22,36 +18,16 @@ class App extends Component {
         }
       }
     }
-    // var dataset = [counter];
-    // const data = {
-    //   labels: [0],
-    //   datasets: [
-    //     {
-    //       label: 'My First dataset',
-    //       fill: false,
-    //       lineTension: 0.1,
-    //       backgroundColor: 'rgba(75,192,192,0.4)',
-    //       borderColor: 'rgba(75,192,192,1)',
-    //       borderCapStyle: 'butt',
-    //       borderDash: [],
-    //       borderDashOffset: 0.0,
-    //       borderJoinStyle: 'miter',
-    //       data: dataset,
-    //       maintainAspectRatio: true
-    //     }
-    //   ]
-    // };
     this.state = {
-      board: board
-      // data: data,
-      // counterArr: [0],
-      // dataset: [counter]
+      board: board,
+      counterStr: counter + ", "
     };
-    // this.updateChart = this.updateChart.bind(this);
   }
 
   componentDidMount() {
     setTimeout(function () {
+      var counterStr = this.state.counterStr;
+      var counter = 0;
       var numNeighbors;
       var board = this.state.board;
       for (let i = 0; i < 30; i++) {
@@ -144,22 +120,23 @@ class App extends Component {
             }
           }
           else {
+            counter++;
             if (numNeighbors < 2 || numNeighbors > 3) {
               board[i][j] = 0;
             }
           }
         }
       }
-      this.setState({board:board});
+      counterStr += counter + ", ";
+      this.setState({board:board,counterStr: counterStr});
     }.bind(this), 1000);
   }
 
   componentDidUpdate() {
     setTimeout(function () {
-      var counterElem = 0;
+      var counter = 0;
       var board = this.state.board;
-      // var dataset = this.state.dataset;
-      // var counterArr = this.state.counterArr;
+      var counterStr = this.state.counterStr;
       var numNeighbors;
       for (let i = 0; i < 30; i++) {
         for (let j = 0; j < 50; j++) {
@@ -251,34 +228,21 @@ class App extends Component {
             }
           }
           else {
-            counterElem++;
+            counter++;
             if (numNeighbors < 2 || numNeighbors > 3) {
               board[i][j] = 0;
             }
           }
         }
       }
-      // dataset.push(counterElem);
-      // counterArr.push(counterArr[counterArr.length-1]+1);
-      // if (dataset.length > 25) {
-      //   dataset.shift();
-      //   counterArr.shift();
-      // }
-      // this.setState({counterArr: counterArr});
-      // this.setState({dataset:dataset});
-      this.setState({board:board});
+      counterStr += counter + ", ";
+      this.setState({board:board, counterStr:counterStr});
     }.bind(this), 1000);
-  }
-
-  updateChart() {
-    var data = this.state.data;
-    data["labels"] = this.state.counterArr;
-    data["datasets"]["data"] = this.state.dataset;
-    this.setState({data:data});
   }
 
   render() {
     var finalJSX = [];
+    var counterStr = this.state.counterStr;
     for (let i = 0; i < 30; i++) {
       let row = [];
       for (let j = 0; j < 50; j++) {
@@ -291,17 +255,11 @@ class App extends Component {
       }
       finalJSX.push(<div>{row}</div>);
     }
+    finalJSX.push(<p>{counterStr}</p>);
+
     return (
-      <div>
-        <div id="main">
-          {finalJSX}
-        </div>
-        <button onClick={this.updateChart}>Update Chart</button>
-        {/* <Line
-        	data={this.state.data}
-          width={40}
-        	height={25}
-        /> */}
+      <div id="main">
+        {finalJSX}
       </div>
     );
   }
